@@ -174,7 +174,7 @@ a {
   gap: 0.65rem;
   min-height: min(100dvh, 760px);
   text-align: center;
-  transform: translateY(-95px);
+  transform: translateY(0);
 }
 
 .portada-crown,
@@ -357,6 +357,19 @@ a {
   filter: drop-shadow(0 1px 0 rgba(105, 86, 47, 0.14));
 }
 
+.portada-guest-corner {
+  position: absolute;
+  right: -20%;
+  bottom: -60%;
+  z-index: 5;
+  width: 92px !important;
+  height: auto !important;
+  margin: 0 !important;
+  border: 0 !important;
+  object-fit: contain !important;
+  pointer-events: none;
+}
+
 /* Invitation shell */
 .invitacion-shell {
   position: relative;
@@ -387,7 +400,36 @@ a {
 }
 
 .invitation-sparkle {
-  display: none;
+  position: absolute;
+  z-index: 4;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fffdf8;
+  box-shadow: 0 0 7px 3px rgba(255, 253, 248, 0.9), 0 0 18px 7px rgba(255, 253, 248, 0.48);
+  pointer-events: none;
+  animation: sparkleGlow 2.8s ease-in-out infinite;
+}
+
+.invitation-sparkle:nth-of-type(even) {
+  background: #d2bb79;
+  box-shadow: 0 0 7px 3px rgba(210, 187, 121, 0.95), 0 0 20px 8px rgba(210, 187, 121, 0.5);
+}
+
+.sparkle-one { top: 10%; left: 12%; }
+.sparkle-two { top: 18%; right: 16%; animation-delay: 0.45s; }
+.sparkle-three { top: 34%; left: 7%; animation-delay: 0.9s; }
+.sparkle-four { top: 42%; right: 9%; animation-delay: 1.35s; }
+.sparkle-five { top: 57%; left: 15%; animation-delay: 1.8s; }
+.sparkle-six { top: 64%; right: 14%; animation-delay: 2.25s; }
+.sparkle-seven { top: 76%; left: 8%; animation-delay: 0.7s; }
+.sparkle-eight { top: 82%; right: 11%; animation-delay: 1.2s; }
+.sparkle-nine { top: 91%; left: 24%; animation-delay: 1.7s; }
+.sparkle-ten { top: 94%; right: 25%; animation-delay: 2.2s; }
+
+@keyframes sparkleGlow {
+  0%, 100% { opacity: 0.48; transform: scale(0.72); }
+  50% { opacity: 1; transform: scale(1.35); }
 }
 
 /* Hero */
@@ -544,7 +586,7 @@ a {
 
 .quince-calendar-button {
   display: inline-flex;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid rgba(185, 156, 88, 0.38);
   border-radius: 999px;
   color: var(--gold-700);
@@ -656,7 +698,15 @@ a {
 }
 
 .section-separator-es2 {
-  transform: translateY(20px);
+  background: linear-gradient(to bottom, transparent 0 50%, #fff3f4 50% 100%);
+}
+
+.section-separator-ceremony {
+  background: linear-gradient(to bottom, #fff3f4 0 50%, transparent 50% 100%);
+}
+
+.section-separator-album {
+  background: linear-gradient(to bottom, #fff3f4 0 50%, transparent 50% 100%);
 }
 
 /* Shared sections */
@@ -680,6 +730,16 @@ a {
 .intro-section::before,
 .intro-section::after {
   content: none;
+}
+
+.dresscode,
+.regalos {
+  background: #fff3f4 !important;
+}
+
+.regalos {
+  padding-top: 0;
+  margin-top: -20px;
 }
 
 .intro-section,
@@ -737,7 +797,7 @@ a {
   letter-spacing: 0.08em;
   max-width: 24ch;
   line-height: 1.65;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  background: linear-gradient(120deg, #715d32 0%, #aa8d4d 20%, #d2bb79 40%, #806938 57%, #b99c58 76%, #69562f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -746,12 +806,14 @@ a {
 
 .intro-blessing-corner {
   position: absolute;
-  right: -17%;
-  bottom: -17%;
+  right: auto;
+  left: 50%;
+  bottom: -12%;
   z-index: 3;
-  width: 170px;
-  padding: 15px;
+  width: 120px;
+  padding: 0;
   height: auto;
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
@@ -780,9 +842,9 @@ a {
   z-index: 1;
   margin-top: 0;
   padding: 10px;
-  font-size: 40px;
-  line-height: 1.15;
-  background: linear-gradient(120deg, #715d32 0%, #aa8d4d 20%, #d2bb79 40%, #806938 57%, #b99c58 76%, #69562f 100%);
+   font-size: 40px;
+   line-height: 1.15;
+   background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -807,6 +869,12 @@ a {
   box-shadow: none;
 }
 
+.album-card,
+.rsvp-card {
+  background: rgb(255, 243, 244);
+  border-radius: 0;
+}
+
 .ceremony-card:first-of-type {
   background: #fff3f4;
 }
@@ -829,6 +897,10 @@ a {
   animation: iconFloat 6.2s ease-in-out infinite;
 }
 
+.gift-section-icon {
+  width: 290px;
+}
+
 .dress-icons {
   display: flex;
   align-items: center;
@@ -837,8 +909,12 @@ a {
 }
 
 .dress-icons img {
-  width: clamp(78px, 16vw, 128px);
+  width: 150px;
   height: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+  object-fit: contain;
   animation: iconFloat 6.2s ease-in-out infinite;
 }
 
@@ -890,6 +966,7 @@ a {
 
 .ceremony-card {
   width: min(350px, 84vw);
+  margin-bottom: 40px;
   border-radius: 0;
   background: #fff3f4;
   overflow: visible;
@@ -913,6 +990,17 @@ a {
   transform: scaleX(-1);
 }
 
+.album-card .event-card-corner {
+  width: 150px;
+  right: -10%;
+}
+
+.rsvp-card .event-card-corner {
+  width: 150px;
+  right: auto;
+  left: -10%;
+}
+
 .ceremony-card .event-lugar,
 .ceremony-card .event-direccion,
 .ceremony-card .event-time {
@@ -929,6 +1017,15 @@ a {
 .dress-card .dress-copy,
 .dress-card .dress-note {
   color: var(--rose-700);
+  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.regalos-copy {
+  color: var(--rose-700);
+  font-weight: 400;
   background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1054,6 +1151,22 @@ a {
   animation: iconFloat 6.2s ease-in-out infinite;
 }
 
+.album-card p {
+  color: var(--rose-700);
+  font-weight: 400;
+  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.album-card .btn-soft {
+  color: var(--rose-700);
+  background: #f3c6d2;
+  border: 0;
+  box-shadow: 0 6px 16px rgba(168, 117, 130, 0.12);
+}
+
 /* RSVP */
 .rsvp-card {
   width: min(760px, 100%);
@@ -1078,14 +1191,27 @@ a {
 }
 
 .invitado-lugares {
-  color: var(--rose-700);
+  color: transparent;
+  background: linear-gradient(120deg, #715d32 0%, #aa8d4d 20%, #d2bb79 40%, #806938 57%, #b99c58 76%, #69562f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: clamp(1rem, 2.8vw, 1.25rem);
   font-weight: 600;
+}
+
+.rsvp-card .invitado-nombre {
+  padding: 10px;
 }
 
 .rsvp-intro {
   max-width: 420px;
   margin-inline: auto;
+  color: transparent !important;
+  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #rsvp-form {
@@ -1109,8 +1235,12 @@ a {
   display: block;
   max-width: 760px;
   margin: 0 auto;
-  padding: 0 1rem;
-  text-align: center;
+   padding: 10px;
+   text-align: center;
+   background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+   -webkit-background-clip: text;
+   background-clip: text;
+   -webkit-text-fill-color: transparent;
 }
 
 /* Footer */
@@ -1120,7 +1250,7 @@ a {
   padding: 2rem 1rem 3rem;
   color: var(--text);
   text-align: center;
-  background: transparent;
+  background: #d6aab5;
 }
 
 #social-icons {
