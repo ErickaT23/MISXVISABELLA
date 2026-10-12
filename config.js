@@ -55,7 +55,7 @@ const config = {
     },
 
     footer: {
-        hashtag: "#unforgettaVALE",
+        hashtag: "",
         instagramUrl: "#",
         facebookUrl: "#",
         marcaTexto: "Diseño",

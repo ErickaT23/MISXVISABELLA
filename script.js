@@ -74,16 +74,16 @@ function createSiteConfig(remoteConfig) {
 
     return {
         seo: {
-            titulo: 'UnforgettaVal | XV Valentina',
-            descripcion: 'Quinceanera de Valentina - Pop Rebel Dream Sweet & Sour',
+            titulo: 'XV Isabella Puente Mendez',
+            descripcion: 'Invitación a los XV años de Isabella Puente Mendez.',
             autor: 'Two Design',
             ...externalConfig.seo,
             ...normalizedRemoteConfig.seo
         },
         pareja: {
-            nombres: 'Valentina',
-            fecha: '25-07-2026',
-            fechaVisible: 'Sábado 25 de Julio de 2026',
+            nombres: 'Isabella',
+            fecha: '07-11-2026',
+            fechaVisible: 'Sábado 7 de Noviembre de 2026',
             ...externalConfig.pareja,
             ...normalizedRemoteConfig.pareja
         },
@@ -120,7 +120,7 @@ function createSiteConfig(remoteConfig) {
             ...normalizedRemoteConfig.textos
         },
         footer: {
-            hashtag: '#unforgettaVALE',
+            hashtag: '',
             instagramUrl: '#',
             facebookUrl: '#',
             marcaTexto: 'Diseño',
