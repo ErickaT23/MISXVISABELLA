@@ -16,7 +16,7 @@
   --paper: rgba(255, 248, 250, 0.42);
   --line: rgba(168, 117, 130, 0.32);
   --shadow: 0 12px 28px rgba(168, 117, 130, 0.14);
-  --font-script: "Great Vibes", cursive;
+  --font-script: "Lobster Two", cursive;
   --font-text: "Cormorant", serif;
 }
 
@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }
 
 html,
@@ -51,6 +52,7 @@ body {
   font-style: normal;
   line-height: 1.6;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
   background-color: #f4d5de;
   background-image: url("images/FPALOROSA.png");
   background-position: center center;
@@ -129,18 +131,23 @@ a {
   min-height: 100dvh;
   overflow: hidden;
   background: transparent;
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform, filter;
+  transition: opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 1s ease;
 }
 
 .portada.abrir {
   opacity: 0;
   pointer-events: none;
-  transform: scale(1.025);
+  transform: scale(1.06);
+  filter: blur(5px);
 }
 
 .portada.abrir .portada-contenido {
-  transform: translateY(-10px) scale(1.02);
-  transition: transform 0.8s ease;
+  opacity: 0;
+  transform: translateY(-18px) scale(1.04);
+  transition: opacity 0.65s ease, transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .portada::before {
@@ -230,10 +237,9 @@ a {
   font-family: var(--font-script) !important;
   font-size: clamp(3.5rem, 14vw, 9rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
   line-height: 0.9;
   text-transform: none;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -339,7 +345,7 @@ a {
   font-family: var(--font-script);
   font-size: clamp(calc(1.3rem + 4px), calc(5vw + 4px), calc(2rem + 4px));
   font-weight: 400;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -470,10 +476,10 @@ a {
   gap: clamp(0.65rem, 2.4vw, 1.1rem);
   margin-top: clamp(0.25rem, 0.8vw, 0.5rem);
   color: var(--gold-700);
-  font-family: var(--font-text);
+  font-family: var(--font-script);
   font-optical-sizing: auto;
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 700;
   font-style: normal;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -502,15 +508,11 @@ a {
 .hero-special-message {
   width: min(620px, 100%);
   margin-top: clamp(0.5rem, 1.2vw, 0.85rem);
-  color: var(--rose-700);
+  color: #522e36;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 1px 0 rgba(111, 75, 84, 0.12));
 }
 
@@ -529,9 +531,14 @@ a {
   text-align: center;
 }
 
-.quince-calendar-image {
-  width: min(280px, 70vw);
-  height: auto;
+.quince-thanks {
+  width: min(560px, 100%);
+  color: var(--rose-700);
+  font-family: var(--font-text);
+  font-size: clamp(1.25rem, 3.8vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
 }
 
 .quince-calendar-label {
@@ -586,33 +593,15 @@ a {
 
 .quince-calendar-button {
   display: inline-flex;
-  padding: 10px;
-  border: 1px solid rgba(185, 156, 88, 0.38);
-  border-radius: 999px;
-  color: var(--gold-700);
-  background: rgba(255, 248, 250, 0.12);
-  box-shadow: 0 6px 18px rgba(168, 117, 130, 0.08);
   transform: translateY(calc(var(--calendar-parallax, 0px) - 44px));
-  transition: transform 0.18s ease-out, background 0.25s ease, box-shadow 0.25s ease;
-  -webkit-background-clip: initial;
-  background-clip: initial;
 }
 
 .quince-calendar-button {
   text-decoration: none;
 }
 
-.quince-calendar-button span {
-  background: linear-gradient(120deg, #715d32 0%, #aa8d4d 20%, #d2bb79 40%, #806938 57%, #b99c58 76%, #69562f 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .quince-calendar-button:hover {
   transform: translateY(calc(var(--calendar-parallax, 0px) - 47px));
-  background: rgba(255, 248, 250, 0.2);
-  box-shadow: 0 8px 22px rgba(168, 117, 130, 0.14);
 }
 
 #scroll-hint {
@@ -794,7 +783,6 @@ a {
   font-size: 18px;
   font-weight: 400;
   font-style: normal;
-  letter-spacing: 0.08em;
   max-width: 24ch;
   line-height: 1.65;
   background: linear-gradient(120deg, #715d32 0%, #aa8d4d 20%, #d2bb79 40%, #806938 57%, #b99c58 76%, #69562f 100%);
@@ -830,7 +818,7 @@ a {
   font-family: var(--font-script);
   font-weight: 700;
   line-height: 1;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -844,7 +832,7 @@ a {
   padding: 10px;
    font-size: 40px;
    line-height: 1.15;
-   background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+   background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -910,8 +898,11 @@ a {
 
 .dress-icons img {
   width: 150px;
+  max-width: 100%;
   height: auto;
   display: block;
+  visibility: visible;
+  opacity: 1;
   position: relative;
   z-index: 2;
   object-fit: contain;
@@ -948,7 +939,6 @@ a {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.52;
-  letter-spacing: 0.04em;
 }
 
 .ceremony-card .event-lugar {
@@ -1004,10 +994,7 @@ a {
 .ceremony-card .event-lugar,
 .ceremony-card .event-direccion,
 .ceremony-card .event-time {
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #522e36;
 }
 
 .dress-note {
@@ -1016,26 +1003,19 @@ a {
 
 .dress-card .dress-copy,
 .dress-card .dress-note {
-  color: var(--rose-700);
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #522e36;
 }
 
 .regalos-copy {
-  color: var(--rose-700);
+  color: #522e36;
   font-weight: 400;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 /* Buttons */
 .btn-soft,
 #rsvp-submit,
 .btn-location,
+.quince-calendar-button,
 .rsvp-popup-btn,
 .rsvp-popup-close,
 .music-fab {
@@ -1048,6 +1028,7 @@ a {
   border: 0;
   border-radius: 999px;
   color: #fff8f5;
+  font-family: var(--font-text);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -1061,20 +1042,15 @@ a {
 
 .btn-soft,
 #rsvp-submit,
-.btn-location {
+.btn-location,
+.quince-calendar-button {
   margin-top: 1.35rem;
-}
-
-.ceremony-card .btn-location {
-  color: var(--rose-700);
-  background: #f3c6d2;
-  border-color: rgba(168, 117, 130, 0.34);
-  box-shadow: 0 6px 16px rgba(168, 117, 130, 0.12);
 }
 
 .btn-soft:hover,
 #rsvp-submit:hover,
 .btn-location:hover,
+.quince-calendar-button:hover,
 .rsvp-popup-btn:hover,
 .rsvp-popup-close:hover {
   transform: translateY(-3px) scale(1.02);
@@ -1152,19 +1128,8 @@ a {
 }
 
 .album-card p {
-  color: var(--rose-700);
+  color: #522e36;
   font-weight: 400;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.album-card .btn-soft {
-  color: var(--rose-700);
-  background: #f3c6d2;
-  border: 0;
-  box-shadow: 0 6px 16px rgba(168, 117, 130, 0.12);
 }
 
 /* RSVP */
@@ -1182,9 +1147,8 @@ a {
   font-family: var(--font-script);
   font-size: clamp(2.15rem, 9vw, 4.8rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
   line-height: 0.95;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+  background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1207,11 +1171,7 @@ a {
 .rsvp-intro {
   max-width: 420px;
   margin-inline: auto;
-  color: transparent !important;
-  background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #522e36 !important;
 }
 
 #rsvp-form {
@@ -1237,7 +1197,7 @@ a {
   margin: 0 auto;
    padding: 10px;
    text-align: center;
-   background: linear-gradient(120deg, #76515b 0%, #a87582 20%, #d6aab5 39%, #8d606b 57%, #c28f9c 76%, #6f4b54 100%);
+   background: linear-gradient(120deg, #b85f73 0%, #d9788d 20%, #f1a6b1 39%, #ce6d83 57%, #eb96a5 76%, #a95168 100%);
    -webkit-background-clip: text;
    background-clip: text;
    -webkit-text-fill-color: transparent;
@@ -1250,7 +1210,7 @@ a {
   padding: 2rem 1rem 3rem;
   color: var(--text);
   text-align: center;
-  background: #d6aab5;
+  background: #b76e79;
 }
 
 #social-icons {
