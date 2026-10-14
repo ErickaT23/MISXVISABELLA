@@ -97,7 +97,7 @@ function createSiteConfig(remoteConfig) {
             ceremonia: {
                 titulo: 'Ceremonia',
                 lugar: 'Iglesia Pendiente',
-                hora: '7:00pm',
+                hora: '14:30 hrs',
                 direccion: 'Direccion pendiente',
                 ubicacionUrl: 'https://www.google.com/maps/search/?api=1&query=Iglesia%20Pendiente%20Direccion%20pendiente',
                 ...(localEvento.ceremonia || {}),

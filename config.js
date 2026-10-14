@@ -36,7 +36,7 @@ const config = {
         ceremonia: {
             titulo: "Ceremonia",
             lugar: "Basílica de Santo Domingo",
-            hora: "14:00 hrs",
+            hora: "14:30 hrs",
             direccion: "12 Avenida 10-09, Zona 1, Ciudad de Guatemala",
             ubicacionUrl: "https://maps.app.goo.gl/JgdTi9GwvAtD4r8h7"
         },
