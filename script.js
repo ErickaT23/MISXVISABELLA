@@ -96,10 +96,10 @@ function createSiteConfig(remoteConfig) {
         evento: {
             ceremonia: {
                 titulo: 'Ceremonia',
-                lugar: 'Iglesia Pendiente',
+                lugar: 'Basílica de Santo Domingo',
                 hora: '14:30 hrs',
-                direccion: 'Direccion pendiente',
-                ubicacionUrl: 'https://www.google.com/maps/search/?api=1&query=Iglesia%20Pendiente%20Direccion%20pendiente',
+                direccion: '12 Avenida 10-09, Zona 1, Ciudad de Guatemala',
+                ubicacionUrl: 'https://maps.app.goo.gl/JgdTi9GwvAtD4r8h7',
                 ...(localEvento.ceremonia || {}),
                 ...(remoteEvento.ceremonia || {})
             },
@@ -400,12 +400,15 @@ const InvitadoApp = {
 
         const template = String(SiteConfig.textos.mensajePases || '{pases} lugares');
         const withPases = template.replace('{pases}', String(pases));
+        const withPronoun = pases === 1
+            ? withPases.replace(/\bpara ustedes\b/gi, 'para ti')
+            : withPases.replace(/\bpara ti\b/gi, 'para ustedes');
         lugaresEl.textContent = pases === 1
-            ? withPases
+            ? withPronoun
                 .replace(/\blugares\s+especiales\b/gi, 'lugar especial')
                 .replace(/\blugares\b/gi, 'lugar')
                 .replace(/\bespeciales\b/gi, 'especial')
-            : withPases;
+            : withPronoun;
     },
 
     renderRSVP() {
