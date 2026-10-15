@@ -105,10 +105,10 @@ function createSiteConfig(remoteConfig) {
             },
             recepcion: {
                 titulo: 'Recepción',
-                lugar: 'Hotel Gran Tikal Futura - salón tikal V',
-                hora: '',
-                direccion: 'Calzada Roosevelt 22-43, Cdad. de Guatemala',
-                ubicacionUrl: 'https://maps.app.goo.gl/SsKs8HQ48LsEJbiZ6',
+                lugar: 'Club de Oficiales',
+                hora: '18:00 hrs',
+                direccion: '9a. Avenida y 15 Calle “A”, Zona 13, Ciudad de Guatemala',
+                ubicacionUrl: 'https://maps.app.goo.gl/MWZosJYVEkcNTgpZ6',
                 ...(localEvento.recepcion || {}),
                 ...(remoteEvento.recepcion || {})
             }
