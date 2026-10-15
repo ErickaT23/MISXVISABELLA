@@ -1103,6 +1103,10 @@ function initRSVP() {
             return;
         }
 
+        // Reserve the WhatsApp tab while this function still runs from the button click.
+        // Opening it after the Firebase request is commonly blocked on mobile browsers.
+        const whatsappWindow = window.open('', '_blank');
+
         const payload = {
             id: guestId,
             nombre: confirmationName,
@@ -1126,8 +1130,15 @@ function initRSVP() {
                 'Lugares confirmados: ' + String(payload.cantidadConfirmada),
                 'Respuesta: ' + (respuesta === 'si' ? 'Sí, con mucho gusto' : 'No, lamentablemente no podré')
             ].join('\n');
-            window.open('https://wa.me/50259181828?text=' + encodeURIComponent(whatsappMessage), '_blank', 'noopener');
+            const whatsappUrl = 'https://wa.me/50259181828?text=' + encodeURIComponent(whatsappMessage);
+            if (whatsappWindow && !whatsappWindow.closed) {
+                whatsappWindow.location.href = whatsappUrl;
+            } else {
+                // Fallback for browsers that do not allow a second tab.
+                window.location.href = whatsappUrl;
+            }
         } catch (error) {
+            if (whatsappWindow && !whatsappWindow.closed) whatsappWindow.close();
             if (error && (error.code === 'RSVP_ALREADY_CONFIRMED' || error.code === 'RSVP_ALREADY_CONFIRMED_DEVICE')) {
                 const existingRecord = (error.existingData && error.existingData.confirmado)
                     ? error.existingData
