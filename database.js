@@ -124,11 +124,21 @@ function mapRsvpSnapshotToArray(snapshot) {
   return Object.entries(raw)
     .map(function ([key, value]) {
       if (!value || typeof value !== "object") return null;
+      if (key === "0" && !value.respuesta) {
+        return Object.entries(value)
+          .filter(function ([, nestedValue]) {
+            return nestedValue && typeof nestedValue === "object";
+          })
+          .map(function ([nestedKey, nestedValue]) {
+            return { ...nestedValue, _key: key + "-" + nestedKey };
+          });
+      }
       return {
         ...value,
         _key: key
       };
     })
+    .flat()
     .filter(Boolean);
 }
 

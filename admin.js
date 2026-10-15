@@ -653,6 +653,15 @@
             });
         });
 
+        if (!map.has("0")) {
+            map.set("0", {
+                id: "0",
+                nombre: "Invitado Especial",
+                pases: 1,
+                activo: true
+            });
+        }
+
         return map;
     }
 
@@ -661,9 +670,12 @@
 
         (Array.isArray(confirmations) ? confirmations : []).forEach(function (record) {
             const normalized = normalizeConfirmation(record);
-            const previous = latestByGuest.get(normalized.id);
+            const confirmationKey = normalized.id === "0" && record && record._key
+                ? record._key
+                : normalized.id;
+            const previous = latestByGuest.get(confirmationKey);
             if (!previous || Number(normalized.fechaConfirmacion || 0) >= Number(previous.fechaConfirmacion || 0)) {
-                latestByGuest.set(normalized.id, normalized);
+                latestByGuest.set(confirmationKey, { ...normalized, id: confirmationKey });
             }
         });
 

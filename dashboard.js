@@ -116,7 +116,7 @@ function buildRows(confirmations, guestDirectory) {
     confirmations.forEach((record) => {
         const normalized = normalizeConfirmation(record);
         const confirmationKey = normalized.id === "0" && record && record._key
-            ? normalized.id + "-" + record._key
+            ? record._key
             : normalized.id;
         confirmationById.set(confirmationKey, { ...normalized, id: confirmationKey });
     });
