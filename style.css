@@ -1316,6 +1316,18 @@ a {
   font: inherit;
 }
 
+.rsvp-popup-input {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(168, 117, 130, 0.38);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 248, 250, 0.72);
+  font: inherit;
+  box-sizing: border-box;
+}
+
 .rsvp-popup-actions {
   display: grid;
   gap: 0.7rem;

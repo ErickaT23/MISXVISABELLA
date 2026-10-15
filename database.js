@@ -808,6 +808,8 @@ async function getConfirmationByGuestId(arg1, arg2) {
   const eventId = parsed.eventId;
   const guestId = parsed.guestId;
 
+  if (String(guestId).trim() === "0") return null;
+
   try {
     const eventSnapshot = await get(getEventRsvpRef(eventId, guestId));
     if (eventSnapshot.exists()) {
@@ -826,6 +828,21 @@ async function saveConfirmation(arg1, arg2) {
   const eventId = parsed.eventId;
   const payload = parsed.payload;
   const guestId = String((payload && payload.id) || "").trim() || "default";
+
+  if (guestId === "0") {
+    const record = {
+      id: guestId,
+      nombre: String((payload && payload.nombre) || ""),
+      pasesAsignados: 1,
+      respuesta: payload && payload.respuesta === "no" ? "no" : "si",
+      cantidadConfirmada: Number((payload && payload.cantidadConfirmada) || 0),
+      confirmado: true,
+      fechaConfirmacion: Number((payload && payload.fechaConfirmacion) || Date.now())
+    };
+    const savedRef = push(ref(db, getEventRsvpPath(eventId) + "/0"));
+    await set(savedRef, record);
+    return record;
+  }
 
   if (guestId === "3B") {
     return saveGroupConfirmation(eventId, payload, payload && payload.options ? payload.options : {});

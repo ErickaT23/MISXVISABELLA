@@ -250,6 +250,7 @@ function applyFooterConfig() {
 // ============================================
 const GuestConfig = {
     invitados: {
+        "0": { nombre: "Invitado Especial", pases: 1 },
         "1": { nombre: "Doctor Francisco Sigui y Señora", pases: 3 },
         "2": { nombre: "Ingeniero Ricardo Sigui y Familia", pases: 3 },
         "3": { nombre: "Señor Gerardo Sigui", pases: 1 },
@@ -824,6 +825,7 @@ function initRSVP() {
     };
     const activeEventId = String(window.currentEventId || '').trim();
     const specialGroupId = '3B';
+    const openGuestId = '0';
     let formLocked = false;
     let isCheckingStatus = false;
     const previewMode = Boolean(externalConfig && externalConfig.event && externalConfig.event.previewMode);
@@ -880,6 +882,8 @@ function initRSVP() {
         popup.classList.remove('is-error');
         popup.innerHTML = [
             '<h4 class="rsvp-popup-title">Confirmar Asistencia</h4>',
+            guestId === openGuestId ? '<p class="rsvp-popup-subtitle">Indique su nombre</p>' : '',
+            guestId === openGuestId ? '<input id="rsvp-popup-name" class="rsvp-popup-input" type="text" autocomplete="name" maxlength="100" placeholder="Escriba su nombre">' : '',
             '<p class="rsvp-popup-subtitle">Lugares reservados</p>',
             '<select id="rsvp-popup-count" class="rsvp-popup-select">' + options.join('') + '</select>',
             '<div class="rsvp-popup-actions">',
@@ -891,17 +895,18 @@ function initRSVP() {
         const yesBtn = popup.querySelector('#rsvp-popup-yes');
         const noBtn = popup.querySelector('#rsvp-popup-no');
         const countSelect = popup.querySelector('#rsvp-popup-count');
+        const nameInput = popup.querySelector('#rsvp-popup-name');
 
         if (yesBtn) {
             yesBtn.addEventListener('click', function() {
                 const selectedCount = Math.max(1, Number(countSelect && countSelect.value) || 1);
-                processConfirmation('si', selectedCount);
+                processConfirmation('si', selectedCount, nameInput && nameInput.value);
             });
         }
 
         if (noBtn) {
             noBtn.addEventListener('click', function() {
-                processConfirmation('no', 0);
+                processConfirmation('no', 0, nameInput && nameInput.value);
             });
         }
 
@@ -1006,6 +1011,8 @@ function initRSVP() {
     function applyConfirmedState(record) {
         const respuesta = String(record && record.respuesta || '').toLowerCase() === 'si' ? 'si' : 'no';
 
+        if (guestId === openGuestId) return;
+
         showPermanentMessage(respuesta);
         setFormLocked(true);
         setConfirmedFormVisibility(true);
@@ -1085,12 +1092,20 @@ function initRSVP() {
         showDecisionPopup(maxAllowedCount);
     });
 
-    async function processConfirmation(respuesta, confirmedCount) {
+    async function processConfirmation(respuesta, confirmedCount, enteredName) {
         if (formLocked) return;
+
+        const confirmationName = guestId === openGuestId
+            ? String(enteredName || '').trim()
+            : String(guestData.nombre || '');
+        if (!confirmationName) {
+            showResultPopup('Por favor, indique su nombre para enviar la confirmación.', true);
+            return;
+        }
 
         const payload = {
             id: guestId,
-            nombre: String(guestData.nombre || ''),
+            nombre: confirmationName,
             pasesAsignados: maxAllowedCount,
             respuesta,
             cantidadConfirmada: guestId === specialGroupId && respuesta === 'si' ? 1 : confirmedCount,
@@ -1104,6 +1119,14 @@ function initRSVP() {
             const savedRecord = await saveConfirmation(payload);
             applyConfirmedState(savedRecord);
             showResultPopup(confirmationMessages[respuesta]);
+            const whatsappMessage = [
+                'Confirmación de asistencia, Mis XV Isabella',
+                '',
+                'Invitado: ' + confirmationName,
+                'Lugares confirmados: ' + String(payload.cantidadConfirmada),
+                'Respuesta: ' + (respuesta === 'si' ? 'Sí, con mucho gusto' : 'No, lamentablemente no podré')
+            ].join('\n');
+            window.open('https://wa.me/50259181828?text=' + encodeURIComponent(whatsappMessage), '_blank', 'noopener');
         } catch (error) {
             if (error && (error.code === 'RSVP_ALREADY_CONFIRMED' || error.code === 'RSVP_ALREADY_CONFIRMED_DEVICE')) {
                 const existingRecord = (error.existingData && error.existingData.confirmado)
